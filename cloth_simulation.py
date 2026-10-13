@@ -3,7 +3,7 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import *
 from direct.task import Task
-import sys
+import math
 
 # ----------------------------
 # Particle and Constraint Data
@@ -65,10 +65,10 @@ class ClothSimulation:
                 # Shear constraints (diagonals)
                 if i < self.num_x - 1 and j < self.num_y - 1:
                     diag_idx = (j + 1) * self.num_x + (i + 1)
-                    self.constraints.append(Constraint(idx, diag_idx, self.spacing * 1.414))
+                    self.constraints.append(Constraint(idx, diag_idx, self.spacing * math.sqrt(2)))
                 if i > 0 and j < self.num_y - 1:
                     diag_idx = (j + 1) * self.num_x + (i - 1)
-                    self.constraints.append(Constraint(idx, diag_idx, self.spacing * 1.414))
+                    self.constraints.append(Constraint(idx, diag_idx, self.spacing * math.sqrt(2)))
 
         # Create the renderable mesh (a dynamic geometry that we update each frame)
         self.setup_mesh()
